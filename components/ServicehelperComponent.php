@@ -60,7 +60,11 @@ class ServicehelperComponent extends Component
 
                 $employee->auth_token = $generated_auth_token;
                 //return $employee->auth_token;
-
+               if ( $employee->filename == '' ) {
+					$userprofilefile = Url::home( true ) . 'uploads/demo.jpg';
+				} else {
+					$userprofilefile = Url::home( true ) . 'uploads/user_pic/' . $employee->filename;
+				}
                 if($employee->save()) {
                     return array(
                         "data" => [
@@ -68,7 +72,7 @@ class ServicehelperComponent extends Component
                             "emp_code" => $employee->emp_code,
                             "email_id" => $employee->email_id,
                             "user_type" => $user_type,
-                            "img_link" => "loading",
+                            "img_link" => $userprofilefile,
                             "name" => $employee->emp_name,
                             "login_time" => DaysUtil::currentTime(),
 //                            "work_address" => $work_address,
